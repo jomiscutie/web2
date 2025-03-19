@@ -15,7 +15,7 @@ class StudentsController extends Controller
     }
 
     // Store a new student
-    public function store(Request $request)
+    public function Store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -27,11 +27,11 @@ class StudentsController extends Controller
             'age' => $request->age,
         ]);
 
-        return redirect()->route('students.index')->with('success', 'Student created successfully.');
+        return redirect()->route('std.index')->with('success', 'Student created successfully.');
     }
 
     // Update student details
-    public function update(Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -44,7 +44,7 @@ class StudentsController extends Controller
             'age' => $request->age,
         ]);
 
-        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
+        return redirect()->route('std.index')->with('success', 'Student updated successfully.');
     }
 
     // Delete a student
@@ -53,6 +53,6 @@ class StudentsController extends Controller
         $student = Students::findOrFail($id);
         $student->delete();
 
-        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('std.index')->with('success', 'Student deleted successfully.');
     }
 }

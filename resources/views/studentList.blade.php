@@ -50,7 +50,7 @@
                                         </button>
                                         
                                         <!-- Delete Form -->
-                                        <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('std.destroy', $student->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">
@@ -63,7 +63,7 @@
                                 <!-- Edit Student Modal -->
                                 <div class="modal fade" id="editStudentModal{{ $student->id }}" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <form action="{{ route('students.update', $student->id) }}" method="POST">
+                                        <form action="{{ route('std.edit', $student->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="modal-content">
@@ -100,7 +100,7 @@
     <!-- Add Student Modal -->
     <div class="modal fade" id="studentListsModal" tabindex="-1" aria-labelledby="studentListsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('students.store') }}" method="POST">
+            <form action="{{ route('std.create') }}" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
