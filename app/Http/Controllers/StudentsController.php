@@ -3,27 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
+    // Display list of students
     public function index()
     {
-        $students = Students::all();
+        $students = Students::orderBy('id', 'asc')->get();
         return view('studentList', compact('students'));
     }
-    public function newStudent(Request $request)
+
+    // Store a new student
+    public function store(Request $request)
     {
         $request->validate([
-            'stdName' => 'required|max:3',
-            'stdAge' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'age' => 'required|integer|min:3',
         ]);
 
-        $input['name'] = $request->stdName;
-        $input['age'] = $request->stdAge;
-        Students::create($input);
+        Students::create([
+            'name' => $request->name,
+            'age' => $request->age,
+        ]);
 
-        return redirect()->route('std.index')->with('success', 'Student created successfully.');
+        return redirect()->route('students.index')->with('success', 'Student created successfully.');
+    }
+
+    // Update student details
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required|integer|min:3',
+        ]);
+
+        $student = Students::findOrFail($id);
+        $student->update([
+            'name' => $request->name,
+            'age' => $request->age,
+        ]);
+
+        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
+    }
+
+    // Delete a student
+    public function destroy($id)
+    {
+        $student = Students::findOrFail($id);
+        $student->delete();
+
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
 }
