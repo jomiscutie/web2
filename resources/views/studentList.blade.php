@@ -15,6 +15,18 @@
     </div>
     @endif
 
+    <!-- Logout Button -->
+    <div class="container mt-3">
+        <div class="d-flex justify-content-end">
+            @auth
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            @endauth
+        </div>
+    </div>
+
     <!-- Display Student Lists Table -->
     <div class="container">
         <div class="row">
